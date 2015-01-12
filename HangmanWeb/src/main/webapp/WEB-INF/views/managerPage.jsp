@@ -36,13 +36,6 @@
 					<c:otherwise>Not finished!</c:otherwise>
 				  </c:choose>
 	            </td>
-	            <%-- <td>
-	              <span class="label label-info">${player.isPlayerLostTheGame}</span>
-	              <c:choose>
-      				<c:when test="${player.isPlayerLostTheGame}">Yes</c:when>
-					<c:otherwise>No</c:otherwise>
-				  </c:choose>
-	            </td> --%>
 	            <td>
 	              <span class="label label-info">${player.hangmanGame.remainingMoves}</span>
 	            </td>
