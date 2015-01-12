@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +21,6 @@ import com.hangman.service.PlayerService;
 @Controller
 public class ManagerController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
-	
 	@Autowired
 	private PlayerService playerService;
 	
@@ -39,8 +35,7 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/manager", method = RequestMethod.GET)
 	public String getAllGames(Model model) {
-		logger.info("Manager page!");
-
+		
 		List<Player> playerList = playerService.getAllGamesStatus();
 		
         // Set the current games with players as view

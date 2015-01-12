@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +24,6 @@ import com.hangman.service.PlayerService;
 @Controller
 public class PlayerController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
-
 	@Autowired
 	private PlayerService playerService;
 	
@@ -42,7 +38,6 @@ public class PlayerController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		logger.info("Welcome to Hangman Game!");
 		
 		return "welcomePage";
 	}
@@ -53,13 +48,12 @@ public class PlayerController {
 	 */
 	@RequestMapping(value = "/player", method = RequestMethod.GET)
 	public String submitUsername(Model model,HttpServletRequest request) {
-		logger.info("Starting the game!");
 		
 		//get the username from the request
 		String userName= request.getParameter("username");
 		
 		String restart = request.getParameter("restart");
-		  if (StringUtils.isNotEmpty(restart) && Boolean.parseBoolean(restart)) {
+		if (StringUtils.isNotEmpty(restart) && Boolean.parseBoolean(restart)) {
 			  playerService.removeGame(userName);
         }
 		  
