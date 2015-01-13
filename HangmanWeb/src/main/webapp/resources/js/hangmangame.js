@@ -38,8 +38,8 @@ function sendLetterAjax(button, userName, letter){
       dataType: 'json',
       type: 'POST',
       error: function() {
-         $('#errorNotificationId').html('<p>An error has occurred!!!</p>');
-         $('#errorNotificationId').slideDown('normal').delay(2000).slideUp('fast');
+         $('#notificationId').html('<p>An error has occurred!!!</p>');
+         $('#notificationId').slideDown('normal').delay(2000).slideUp('fast');
       },
       success: function(currentPlayer) {
          //If the game is finished, nothing is done

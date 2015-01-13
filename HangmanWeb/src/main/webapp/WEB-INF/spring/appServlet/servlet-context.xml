@@ -25,7 +25,7 @@
 	<context:component-scan base-package="com.hangman.controller" />
 	
 	<!-- JSON Converter -->
-	
+	<!-- 
 	<beans:bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 		<beans:property name="supportedMediaTypes" value="application/json"/>
 	</beans:bean>
@@ -37,6 +37,6 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-	
+	 -->
 	
 </beans:beans>

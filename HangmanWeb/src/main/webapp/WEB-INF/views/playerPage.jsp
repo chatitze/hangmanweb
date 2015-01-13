@@ -53,7 +53,6 @@
             <button class="btn btn-small btn-primary" type="button" onclick="restartGame('${currentPlayer.userName}')">Restart</button>
           </c:if>
         </div>
-
-		<div id="errorNotificationId"></div>
+        
 	</body>
 </html>
