@@ -34,7 +34,6 @@ function sendLetterAjax(button, userName, letter){
 	var url = "/hangmangame/player?username=" + userName + "&letter=" + letter;
     $.ajax({
       url: url,
-      data: "username=" + userName + "&letter=" + letter,
       dataType: 'json',
       type: 'POST',
       error: function() {
@@ -42,33 +41,33 @@ function sendLetterAjax(button, userName, letter){
          $('#notificationId').slideDown('normal').delay(2000).slideUp('fast');
       },
       success: function(currentPlayer) {
-         //If the game is finished, nothing is done
-		if(!currentPlayer.isFinished){
-			//Update the remaining moves count
-			$("#remainingMovesId").text(currentPlayer.hangmanGame.remainingMoves);
-
-			//Update the letters of the word to find
+        //If the game is not finished then update it
+		if($("#visibleLettersId:contains(_)")){
+			//Update the visible letters
 			var visibleLetters = "";
 			$.each(currentPlayer.hangmanGame.visibleLetters, function (key, value) {
 				visibleLetters += (value + " ");
 			});
 			$("#visibleLettersId").text(visibleLetters);
 			
-			//Disable the button
-			$(button).prop('disabled', true);
-			
-			//Notification: when the player wins or looses the game
-			var notification = "";
-			if(currentPlayer.isPlayerWonTheGame){
-				notification = '<p class="text-success">Congratulations '+currentPlayer.userName+'! You won the game!!!</p>';
-			} else if(currentPlayer.isPlayerLostTheGame){
-				notification = '<p class="text-error">You lost the game, the word is: ' + currentPlayer.hangmanGame.secretWord  + '</p>';
-			}
-			// when the game is finished a restart button is displayed
+			//Update the remaining moves count
+			$("#remainingMovesId").text(currentPlayer.hangmanGame.remainingMoves);
+
+			// when the game is finished a notification and a restart button is displayed
 			if(currentPlayer.isPlayerWonTheGame || currentPlayer.isPlayerLostTheGame){
-				notification += "<button class=\"btn btn-small btn-primary\" type=\"button\" onclick=\"restartGame(\'" + userName + "\')\">Restart</button>";
-				$("#notificationId").html(notification);
+				//Notification: when the player wins or looses the game
+				var notification = "";
+				if(currentPlayer.isPlayerWonTheGame){
+					notification = '<p>Congratulations '+currentPlayer.userName+'! You won the game!!!</p>';
+				} else if(currentPlayer.isPlayerLostTheGame){
+					notification = '<p>You lost the game, the word is: ' + currentPlayer.hangmanGame.secretWord  + '</p>';
+				}
+				notification += "<button type=\"button\" onclick=\"restartGame(\'" + userName + "\')\">Restart</button>";
+				$("#notificationId").html(notification);	
 			}
+			
+			//Disable already submitted letter button
+			$(button).prop('disabled', true);
 		}   
       }
     });
