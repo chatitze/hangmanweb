@@ -8,39 +8,31 @@
   			body {font-family:verdana}
   			h3   {color:blue}
   			div	 {text-align:center}
+  			table{align:center}
 		</style>
 	</head>
 	<body>
 		<div>
     		<h2>Games Status<br></h2>
-
-			<table id="hangmanGamesId" width="50%" align="center" border="1px">
+			<table id="hangmanGamesId" style="width: 50%" align="center" border="1">
               <tr>
        			<td><b> Player </b></td>
        			<td><b> Status </b></td>
        			<td><b> Remaining Moves </b></td>
        			<td><b> Secret Word </b></td>
-   			  </tr>
-   			
+   			  </tr>			
     		  <c:forEach var="player" items="${playerList}">
 	          <tr>
+	            <td>${player.userName}</td>
 	            <td>
-	              <span class="label label-info">${player.userName}</span>
-	            </td>
-	            <td>
-	              <%-- <span class="label label-info">${player.isPlayerWonTheGame}</span> --%>
 	              <c:choose>
       				<c:when test="${player.isPlayerWonTheGame}">Won</c:when>
       				<c:when test="${player.isPlayerLostTheGame}">Lost</c:when>
 					<c:otherwise>Not finished!</c:otherwise>
 				  </c:choose>
 	            </td>
-	            <td>
-	              <span class="label label-info">${player.hangmanGame.remainingMoves}</span>
-	            </td>
-	            <td>
-	              <span class="label label-info">${player.hangmanGame.secretWord}</span>
-	            </td>
+	            <td>${player.hangmanGame.remainingMoves}</td>
+	            <td>${player.hangmanGame.secretWord}</td>
 	          </tr>
        	     </c:forEach>
 			</table>
