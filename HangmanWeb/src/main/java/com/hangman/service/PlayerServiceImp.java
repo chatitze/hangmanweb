@@ -22,8 +22,8 @@ public class PlayerServiceImp implements PlayerService{
 	@Override
 	public HangmanGame startNewGame(String userName){
 		HangmanGame newGame = new HangmanGame();
-		return hangmanGames.putIfAbsent(userName, newGame);
-
+		hangmanGames.putIfAbsent(userName, newGame);
+		return newGame;
 	}
 
 	@Override
@@ -95,7 +95,6 @@ public class PlayerServiceImp implements PlayerService{
 			player = new Player(hangmanGames.get(key), key, isPlayerWon, isPlayerLost);
 			playerList.add(player);
 		}
-		
 		return playerList;
 	}
 	
