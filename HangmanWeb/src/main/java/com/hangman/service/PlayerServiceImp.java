@@ -2,8 +2,8 @@ package com.hangman.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import com.hangman.model.Player;
 @Service
 public class PlayerServiceImp implements PlayerService{
 
-	private final Map<String, HangmanGame> hangmanGames = new ConcurrentHashMap<String, HangmanGame>();
+	private final ConcurrentMap<String, HangmanGame> hangmanGames = new ConcurrentHashMap<String, HangmanGame>();
 
 	public PlayerServiceImp() {
 		super();
@@ -22,8 +22,8 @@ public class PlayerServiceImp implements PlayerService{
 	@Override
 	public HangmanGame startNewGame(String userName){
 		HangmanGame newGame = new HangmanGame();
-		hangmanGames.put(userName, newGame);
-	    return newGame;
+		return hangmanGames.putIfAbsent(userName, newGame);
+
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.hangman.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,9 +9,7 @@ import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class HangmanGame implements Serializable {
-
-	  private static final long serialVersionUID = 2854637468960193039L;
+public class HangmanGame{
 	  
 	  private static final List<Character> letterList = Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
 	  
