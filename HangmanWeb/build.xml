@@ -16,8 +16,7 @@
   <property name="build.srcDir.0" value="src/main/java"/>
   <property name="build.resourceDir.0" value="src/main/resources"/>
   <property name="maven.repo.local" value="${user.home}/.m2/repository"/>  
-  <property name="settings.offline" value="false"/> 
-  <property name="settings.interactiveMode" value="true"/>
+  <property name="settings.offline" value="true"/> 
 
   <!-- ====================================================================== -->
   <!-- Defining classpaths                                                    -->
