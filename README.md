@@ -12,6 +12,11 @@ I used maven as a build tool.
 The war file "hangmangame-1.0.0-BUILD-SNAPSHOT.war" will be generated under the target folder by running "mvn clean package" from the command line.
 Then the war file can be deployed and run on Tomcat server. 
 
+I used MySql database to store the player and game details.
+There is a 'HahgmanGameDB.txt file added to the project folder that includes the database scripts.
+In my local the port for MySql is 3306, and both username and password is 'root'. 
+These MySql definitions can be changed in class 'ApplicationContextConfig' under'com.hangman.spring.config' package.
+
 From the client point of view, there are three different pages:
 
 1. When the user hits "http://localhost:8080/hangmangame/"
@@ -27,11 +32,3 @@ Each time when the user clicks a letter button an Ajax request will be sent to t
 
 3. The last page is the manangement page of all games that are currently being played. 
 The link is: "http://localhost:8080/hangmangame/manager"
-
-On the server side: 
-I modelled the project as Player and HangmanGame. Each Player has a hangman game, a user name, and the status of the game.
-A hangman game consist of a secret word, a counter of moves (default is 7 moves), and letters list to show on the page and visible letters of secret word.
-There is a Player service, where all the business logic of the game sits.
-All the games that are currently being played and related user names are stored in a Concurrent HashMap data structure.
-I used a Concurrent HashMap in case of multiple requests can come in at the same time for the same username.
-As each request is handled in its own thread, more than one thread may ask to update/retrieve the game for the same user.
