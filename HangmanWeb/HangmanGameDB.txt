@@ -1,0 +1,45 @@
+
+CREATE DATABASE hangmangame;
+
+USE hangmangame;
+ 
+ CREATE TABLE `hangmangame`.`game` (
+  `GAME_ID` INT NOT NULL AUTO_INCREMENT,
+  `SECRET_WORD` VARCHAR(25) NULL,
+  `REMAINING_MOVES` INT,
+  PRIMARY KEY (`GAME_ID`)
+ );
+
+ CREATE TABLE `hangmangame`.`player` (
+  `PLAYER_ID` INT NOT NULL AUTO_INCREMENT,
+  `USERNAME` VARCHAR(45) NOT NULL,
+  `GAME_STATUS` VARCHAR(15) NOT NULL,
+  `GAME_ID` INT NULL,
+  PRIMARY KEY (`PLAYER_ID`),
+  FOREIGN KEY (`GAME_ID`) REFERENCES `hangmangame`.`game`(`GAME_ID`)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
+ );
+
+CREATE TABLE `hangmangame`.`game_secretwordletters`(
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Game_GAME_ID` INT NOT NULL,
+  `SECRETWORD_LETTERS` CHAR(1) default NULL,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `hangmangame`.`game_visibleletters`(
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Game_GAME_ID` INT NOT NULL,
+  `VISIBLE_LETTERS` CHAR(1) default NULL,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `hangmangame`.`game_usedletters`(
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Game_GAME_ID` INT NOT NULL,
+  `usedLetters_KEY` CHAR(1),
+  `USED_LETTERS` TINYINT(1) default NULL,
+  PRIMARY KEY (`ID`)
+);
+
