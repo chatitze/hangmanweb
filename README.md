@@ -15,7 +15,7 @@ Then the war file can be deployed and run on Tomcat server.
 I used MySql database to store the player and game details.
 There is a 'HahgmanGameDB.txt file added to the project folder that includes the database scripts.
 In my local the port for MySql is 3306, and both username and password is 'root'. 
-These MySql definitions can be changed in class 'ApplicationContextConfig' under'com.hangman.spring.config' package.
+These MySql definitions can be changed in class 'ApplicationContextConfig' under 'com.hangman.spring.config' package.
 
 From the client point of view, there are three different pages:
 
