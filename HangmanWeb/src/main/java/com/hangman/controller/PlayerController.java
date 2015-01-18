@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hangman.model.HangmanGame;
 import com.hangman.model.Player;
-import com.hangman.service.PlayerService;
+import com.hangman.model.Player.GameStatus;
+import com.hangman.service.IPlayerService;
 
 /**
  * @author Chatitze Moumin
@@ -25,10 +25,10 @@ import com.hangman.service.PlayerService;
 public class PlayerController {
 	
 	@Autowired
-	private PlayerService playerService;
+	private IPlayerService playerService;
 	
 	@Resource(name="playerService")
-	public void setPlayerService(PlayerService playerService){
+	public void setPlayerService(IPlayerService playerService){
 		this.playerService = playerService;
 	}
 	
@@ -49,28 +49,23 @@ public class PlayerController {
 	@RequestMapping(value = "/player", method = RequestMethod.GET)
 	public String submitUsername(Model model,HttpServletRequest request) {
 		
-		//get the username from the request
+		//get the username and restart parameters from the request
 		String userName= request.getParameter("username");
-		
 		String restart = request.getParameter("restart");
-		if (StringUtils.isNotEmpty(restart) && Boolean.parseBoolean(restart)) {
-			  playerService.removeGame(userName);
-        }
-		  
-		HangmanGame currentGame   = null;
-        Player      currentPlayer = null;
-        
-        // Create or retrieve the game for the user, and set view bean
-        if (playerService.isExistingPlayer(userName)) {
-      	  currentGame = playerService.getHangmanGame(userName);
-      	  boolean isPlayerWonTheGame  = playerService.isPlayerWonTheGame(userName);
-      	  boolean isPlayerLostTheGame = playerService.isPlayerLostTheGame(userName);
-      	  currentPlayer = new Player(currentGame, userName, isPlayerWonTheGame, isPlayerLostTheGame);
-        } else {
-      	  currentGame = playerService.startNewGame(userName);
-      	  currentPlayer = new Player(currentGame, userName, false, false);
-        }
 
+		Player currentPlayer = playerService.getPlayer(userName);
+
+		if(currentPlayer == null){
+        	// There is no Player found for given username, add a new player
+        	playerService.addPlayer(userName);
+        	currentPlayer = playerService.getPlayer(userName);
+        	
+		}else if((StringUtils.isNotEmpty(restart) && Boolean.parseBoolean(restart)) || currentPlayer.getGame() == null){
+        	// There is no game started yet, or restart the game requested for username, start a new game
+        	playerService.startNewGame(userName);
+        	currentPlayer = playerService.getPlayer(userName);
+        }
+		
         // Set the current player as a view
         model.addAttribute("currentPlayer", currentPlayer);
 
@@ -87,13 +82,14 @@ public class PlayerController {
 		String userName = request.getParameter("username");
 		Character letter = request.getParameter("letter").charAt(0);
   
-        // If the game is not finished, the next move will be done
-        if (!playerService.isPlayerWonTheGame(userName) && !playerService.isPlayerLostTheGame(userName)) {
-        	playerService.submitLetter(userName, letter);
-        }
+		Player currentPlayer = playerService.getPlayer(userName);
 
-        HangmanGame currentGame = playerService.getHangmanGame(userName);
-        Player currentPlayer = new Player(currentGame, userName, playerService.isPlayerWonTheGame(userName), playerService.isPlayerLostTheGame(userName));
-        return currentPlayer;        
+        if(GameStatus.NOT_FINISHED.equals(currentPlayer.getGameStatus())){
+        	// The game is not finished, do the next move
+        	playerService.submitLetter(userName, letter);
+        	currentPlayer = playerService.getPlayer(userName);
+        }
+        
+        return currentPlayer;
 	}
 }

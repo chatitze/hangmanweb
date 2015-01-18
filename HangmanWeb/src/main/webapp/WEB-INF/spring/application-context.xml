@@ -5,6 +5,12 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<bean id="playerService" class="com.hangman.service.PlayerServiceImp"/>		
+	<bean id="playerDao" class="com.hangman.dao.PlayerDaoImp"/>
+	<bean id="gameDao"   class="com.hangman.dao.GameDaoImp"/>
+	
+	<bean id="playerService" class="com.hangman.service.PlayerServiceImp">
+		<property name="playerDao" ref="playerDao"/>
+		<property name="gameDao" ref="gameDao"/>
+	</bean>		
 		
 </beans>

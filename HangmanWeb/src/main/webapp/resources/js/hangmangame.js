@@ -45,22 +45,22 @@ function sendLetterAjax(button, userName, letter){
 		if($("#visibleLettersId:contains(_)")){
 			//Update the visible letters
 			var visibleLetters = "";
-			$.each(currentPlayer.hangmanGame.visibleLetters, function (key, value) {
+			$.each(currentPlayer.game.visibleLetters, function (key, value) {
 				visibleLetters += (value + " ");
 			});
 			$("#visibleLettersId").text(visibleLetters);
 			
 			//Update the remaining moves count
-			$("#remainingMovesId").text(currentPlayer.hangmanGame.remainingMoves);
+			$("#remainingMovesId").text(currentPlayer.game.remainingMoves);
 
 			// when the game is finished a notification and a restart button is displayed
-			if(currentPlayer.isPlayerWonTheGame || currentPlayer.isPlayerLostTheGame){
+			if(currentPlayer.gameStatus != "NOT_FINISHED"){
 				//Notification: when the player wins or looses the game
 				var notification = "";
-				if(currentPlayer.isPlayerWonTheGame){
+				if(currentPlayer.gameStatus == "WON"){
 					notification = '<p>Congratulations '+currentPlayer.userName+'! You won the game!!!</p>';
-				} else if(currentPlayer.isPlayerLostTheGame){
-					notification = '<p>You lost the game, the word is: ' + currentPlayer.hangmanGame.secretWord  + '</p>';
+				} else if(currentPlayer.gameStatus == "LOST"){
+					notification = '<p>You lost the game, the word is: ' + currentPlayer.game.secretWord  + '</p>';
 				}
 				notification += "<button type=\"button\" onclick=\"restartGame(\'" + userName + "\')\">Restart</button>";
 				$("#notificationId").html(notification);	

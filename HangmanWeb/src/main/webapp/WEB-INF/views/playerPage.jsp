@@ -17,17 +17,17 @@
 
 			<p>Word: 
               <b><span id="visibleLettersId">
-                    <c:forEach var="visibleLetters" items="${currentPlayer.hangmanGame.visibleLetters}">
+                    <c:forEach var="visibleLetters" items="${currentPlayer.game.visibleLetters}">
                       ${visibleLetters}
                     </c:forEach>  
                   </span>
                </b>
             </p>
           
-            <p>Remaining moves: <b><span id="remainingMovesId">${currentPlayer.hangmanGame.remainingMoves}</span></b></p><br/> 
+            <p>Remaining moves: <b><span id="remainingMovesId">${currentPlayer.game.remainingMoves}</span></b></p><br/> 
                
     		<p>
-              <c:forEach var="usedLetter" items="${currentPlayer.hangmanGame.usedLetters}">
+              <c:forEach var="usedLetter" items="${currentPlayer.game.usedLetters}">
                 <c:if test="${not usedLetter.value}">
                     <button type="button" onclick="sendLetterAjax(this, '${currentPlayer.userName}','${usedLetter.key}')">${usedLetter.key}</button>
                 </c:if>
@@ -40,12 +40,12 @@
     	</div>
     	
     	<div id="notificationId">
-          <c:if test="${currentPlayer.isPlayerWonTheGame}">
+          <c:if test="${currentPlayer.gameStatus == 'WON'}">
             <p class="text-success">Congratulations ${currentPlayer.userName}! You won the game!!!</p>
             <button class="btn btn-small btn-primary" type="button" onclick="restartGame('${currentPlayer.userName}')">Restart</button>
           </c:if>
-          <c:if test="${currentPlayer.isPlayerLostTheGame}">
-            <p class="text-error">You lost the game, the word is: ${currentPlayer.hangmanGame.secretWord} </p>
+          <c:if test="${currentPlayer.gameStatus == 'LOST'}">
+            <p class="text-error">You lost the game, the word is: ${currentPlayer.game.secretWord} </p>
           	<button class="btn btn-small btn-primary" type="button" onclick="restartGame('${currentPlayer.userName}')">Restart</button>
           </c:if>
         </div>

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hangman.model.Player;
-import com.hangman.service.PlayerService;
+import com.hangman.service.IPlayerService;
 
 /**
  * @author Chatitze Moumin
@@ -22,10 +22,10 @@ import com.hangman.service.PlayerService;
 public class ManagerController {
 
 	@Autowired
-	private PlayerService playerService;
+	private IPlayerService playerService;
 	
 	@Resource(name="playerService")
-	public void setPlayerService(PlayerService playerService){
+	public void setPlayerService(IPlayerService playerService){
 		this.playerService = playerService;
 	}
 	
@@ -36,7 +36,7 @@ public class ManagerController {
 	@RequestMapping(value = "/manager", method = RequestMethod.GET)
 	public String getAllGames(Model model) {
 		
-		List<Player> playerList = playerService.getAllGamesStatus();
+		List<Player> playerList = playerService.getAllPlayers();
 		
         // Set the current games with players as view
         model.addAttribute("playerList", playerList);
