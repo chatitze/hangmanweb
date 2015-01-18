@@ -8,14 +8,19 @@ The challenge is to build a simple version of a 'hangman' game as a web-app (loo
 # My HangmanWeb project
 
 The project was tested in Chrome, Firefox, and IE 11 browsers.
-I used maven as a build tool. 
-The war file "hangmangame-1.0.0-BUILD-SNAPSHOT.war" will be generated under the target folder by running "mvn clean package" from the command line.
+I used maven as a build tool, and maven ant plugin to generate ant build file.
+Afterwards,I cleaned and left only necessary parts of the generated build file.
+
+To build with Maven; mvn clean package;
+To build with Ant: ant clean package;
+
+The war file "hangmangame-1.0.0-BUILD-SNAPSHOT.war" will be generated under the target folder after building the project either with maven or ant.
 Then the war file can be deployed and run on Tomcat server. 
 
 I used MySql database to store the player and game details.
-There is a 'HahgmanGameDB.txt file added to the project folder that includes the database scripts.
+There is a 'HahgmanGameDB.txt' file added to the project folder, includes the database scripts.
 In my local the port for MySql is 3306, and both username and password is 'root'. 
-These MySql definitions can be changed in class 'ApplicationContextConfig' under'com.hangman.spring.config' package.
+These MySql definitions can be changed in class 'ApplicationContextConfig' under 'com.hangman.spring.config' package.
 
 From the client point of view, there are three different pages:
 
